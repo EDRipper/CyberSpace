@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Landing page</title>
+    <title>Islanders</title>
     <style>
       
       @import url('https://fonts.googleapis.com/css2?family=DynaPuff:wght@400..700&display=swap');
@@ -40,7 +40,7 @@
       }
       .map-container img {
         width: 100%;
-        height: auto; /* natural aspect ratio */
+        height: auto; 
         object-fit: contain;
         background-color: #4997ca; 
         user-select: none;
@@ -75,7 +75,7 @@
 
     <div class="map-container">
       <img src="https://summer.hackclub.com/assets/map_new-04857e1f.jpg" alt="The Map">
-      <p><button class="marble-button" style="display: block; margin: 0 auto;">Take Me Somewhere Random</button></p>
+      <p><button class="marble-button" id="randomButton" style="display: block; margin: 0 auto;">Take Me Somewhere Random</button></p>
     </div>
 
     <div class="content">
@@ -99,9 +99,26 @@
         -Most creative page gets an ipad!
 
       </p>
-
-      
     </div>
   </body>
 </html>
+
+
+
+<script>
+  const button = document.getElementById('randomButton');
+
+  button.addEventListener('click', () => {
+    const pages = [
+      '/submissions/page1.html',
+      '/submissions/page2.html',
+      '/submissions/page3.html'
+    ];
+
+    const randomPage = pages[Math.floor(Math.random() * pages.length)];
+
+    window.location.href = `/view?file=${encodeURIComponent(randomPage)}`;
+  });
+</script>
+
 

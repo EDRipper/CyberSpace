@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>View Submission</title>
+  <style>
+    body, html {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+    }
+    iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+  </style>
+</head>
+<body>
+  <iframe id="submissionFrame"></iframe>
+
+  <script>
+    // Read the file query parameter
+    const params = new URLSearchParams(window.location.search);
+    const file = params.get('file');
+
+    if (file) {
+      // Set iframe src to the chosen file
+      document.getElementById('submissionFrame').src = file;
+    } else {
+      document.body.innerHTML = "<p>No submission selected. <a href = 'https://cyber-space.hackclub.dev/'>Return to landing page?</a></p>";
+    }
+  </script>
+</body>
+</html>
