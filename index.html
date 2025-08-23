@@ -109,25 +109,30 @@
 <script>
   const button = document.getElementById('randomButton');
 
-  button.addEventListener('click', () => {
-          const res = await fetch('./submissions.json');
-          const submissions = await res.json();
-          if (!Array.isArray(submissions) || submissions.length === 0) {
-            alert("No submissions found!");
-            return;
-          }
-          const random = submissions[Math.floor(Math.random() * submissions.length)];
-          const filePath = `/submissions/${random.file}`;
-          window.location.href = `/view?file=${encodeURIComponent(filePath)}`;
-        } catch (err) {
-          console.error("Error loading submissions.json", err);
-          alert("Could not load submissions list.");
-        }
+  button.addEventListener('click', async () => {
+    try {
+      // Fetch the submissions list
+      const res = await fetch('/submissions.json');
+      const submissions = await res.json();
 
-    const randomPage = pages[Math.floor(Math.random() * pages.length)];
+      if (!Array.isArray(submissions) || submissions.length === 0) {
+        alert("No submissions found!");
+        return;
+      }
 
-    window.location.href = `/view?file=${encodeURIComponent(randomPage)}`;
+      // Pick a random submission
+      const random = submissions[Math.floor(Math.random() * submissions.length)];
+      const filePath = random.file; // e.g. "test.html"
+
+      // Redirect to /view with ?file=<filename>
+      window.location.href = `/view?file=${encodeURIComponent(filePath)}`;
+
+    } catch (err) {
+      console.error("Error loading submissions.json", err);
+      alert("Could not load submissions list.");
+    }
   });
 </script>
+
 
 
