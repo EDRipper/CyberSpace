@@ -4,6 +4,10 @@
     <title>Landing page</title>
   </head>
   <body>
+    <div class="background"></div>
+    <div class="map-container">
+      <img src="https://summer.hackclub.com/assets/map_new-04857e1f.jpg" alt="The Map">
+    </div>
     <h1>explore the island</h1>
     <p>create, navigate, explanation</p>
   </body>
@@ -11,6 +15,33 @@
 
 <style>
   body {
-    background-image: url("https://summer.hackclub.com/assets/map_new-04857e1f.jpg");
+    margin: 0;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    background-color: #1d73ad; 
   }
+  .background {
+    position: absolute;
+    inset: 0;
+    background: url("https://summer.hackclub.com/assets/map_sea_background.jpg") center/cover no-repeat;
+    opacity: 0.28;
+    z-index: 0;
+    pointer-events: none;
+  }
+  .map-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+  }
+.map-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain; 
+  background-color: #4997ca; 
+  user-select: none;
+  pointer-events: none;
+}
+
 </style>
