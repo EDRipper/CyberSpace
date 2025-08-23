@@ -25,7 +25,7 @@
 
     if (file) {
       // Set iframe src to the chosen file
-      document.getElementById('submissionFrame').src = file;
+      document.getElementById("submissionFrame").src = "/submissions/" + file;
     } else {
       document.body.innerHTML = "<p>No submission selected. <a href = 'https://cyber-space.hackclub.dev/'>Return to landing page?</a></p>";
     }

@@ -110,11 +110,19 @@
   const button = document.getElementById('randomButton');
 
   button.addEventListener('click', () => {
-    const pages = [
-      '/submissions/page1.html',
-      '/submissions/page2.html',
-      '/submissions/page3.html'
-    ];
+          const res = await fetch('./submissions.json');
+          const submissions = await res.json();
+          if (!Array.isArray(submissions) || submissions.length === 0) {
+            alert("No submissions found!");
+            return;
+          }
+          const random = submissions[Math.floor(Math.random() * submissions.length)];
+          const filePath = `/submissions/${random.file}`;
+          window.location.href = `/view?file=${encodeURIComponent(filePath)}`;
+        } catch (err) {
+          console.error("Error loading submissions.json", err);
+          alert("Could not load submissions list.");
+        }
 
     const randomPage = pages[Math.floor(Math.random() * pages.length)];
 
