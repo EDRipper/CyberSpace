@@ -2,15 +2,106 @@
 <html>
   <head>
     <title>Landing page</title>
+    <style>
+      
+      @import url('https://fonts.googleapis.com/css2?family=DynaPuff:wght@400..700&display=swap');
+      body {
+        font-family: "DynaPuff", cursive;
+        margin: 0;
+        width: 100vw;
+        min-height: 100vh;
+        overflow-x: hidden; 
+        background-color: #4296ce; 
+        font-family: "DynaPuff";
+        color: rgb(86, 57, 7);
+      }
+      h1 {
+        font-family: "DynaPuff", cursive;
+        font-size: 10vh  ;
+        color: rgb(57, 41, 6);
+      }
+      .background {
+        position: fixed;
+        inset: 0;
+        background: url("https://summer.hackclub.com/assets/map_sea_background.jpg") center/cover no-repeat;
+        opacity: 0.28;
+        z-index: -1; 
+        pointer-events: none;
+      }
+      .content {
+        padding: 40px;
+        max-width: 800px;
+        margin: auto;
+      }
+      .map-container {
+        position: relative;
+        width: 100%;
+        margin: 40px 0;
+      }
+      .map-container img {
+        width: 100%;
+        height: auto; /* natural aspect ratio */
+        object-fit: contain;
+        background-color: #4997ca; 
+        user-select: none;
+        pointer-events: none;
+        display: block;
+      }
+      .marble-button {
+        position: relative;
+        background: #d4c4b0;
+        border: 3px solid #a8956b;
+        border-radius: 12px;
+        padding: 10px 20px;
+        cursor: pointer;
+        font-weight: 700;
+        color: #3a2f25;
+        transition: all 0.15s ease;
+        box-shadow: 0 6px 0 #8b7a54, 0 8px 15px rgba(0, 0, 0, 0.2);
+        transform: translateY(0);
+      }
+    </style>
   </head>
   <body>
-    <h1>explore the island</h1>
-    <p>create, navigate, explanation</p>
+    <div class="background"></div>
+
+    <div class="content">
+     <h1 style="font-family: 'DynaPuff', cursive;">Welcome Islander!</h1>
+      <p>
+        Create your own space on the summer of making island! Join the community of islanders by publishing a website, get it hosted here and compete for an ipad!
+        <br>check out the projects on the map below, or scroll to find out how you can submit
+      </p>
+    </div>
+
+    <div class="map-container">
+      <img src="https://summer.hackclub.com/assets/map_new-04857e1f.jpg" alt="The Map">
+      <p><button class="marble-button" style="display: block; margin: 0 auto;">Take Me Somewhere Random</button></p>
+    </div>
+
+    <div class="content">
+      <p><u><b>what should i put on my website?</b></u></p>
+      <p style="margin-left: 2em; line-height: 1.6;">
+        -A short story about something that happened there (optional)<br>
+        -A cute background image showing where you are (can be AI generated)<br>
+        -An artifact found on the island? (optional)<br>
+        -A little information about yourself<br>
+        -A link to this page<br>
+        -A link to another islanders site!
+      </p>
+      <br><br>
+      <p><u><b>How do I make my space?</b></u></p>
+      <p style="margin-left: 2em; line-height: 1.6;">
+        -Fork the islanders repository<br>
+        -Create a static webpage using html and css<br>
+        -Add it to the submissions folder in your fork<br>
+        -Create a pull request, mention where on the map you want it to go!<br>
+        -I'll review it, merge and put your website up!<br>
+        -Most creative page gets an ipad!
+
+      </p>
+
+      
+    </div>
   </body>
 </html>
 
-<style>
-  body {
-    background-image: url("https://summer.hackclub.com/assets/map_new-04857e1f.jpg");
-  }
-</style>
