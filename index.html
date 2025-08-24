@@ -3,7 +3,6 @@
   <head>
     <title>Islanders</title>
     <style>
-      
       @import url('https://fonts.googleapis.com/css2?family=DynaPuff:wght@400..700&display=swap');
       body {
         font-family: "DynaPuff", cursive;
@@ -12,12 +11,11 @@
         min-height: 100vh;
         overflow-x: hidden; 
         background-color: #4296ce; 
-        font-family: "DynaPuff";
         color: rgb(86, 57, 7);
       }
       h1 {
         font-family: "DynaPuff", cursive;
-        font-size: 10vh  ;
+        font-size: 10vh;
         color: rgb(57, 41, 6);
       }
       .background {
@@ -47,6 +45,24 @@
         pointer-events: none;
         display: block;
       }
+      #dots {
+        position: absolute;
+        inset: 0;
+      }
+      .dot {
+        position: absolute;
+        width: 16px;
+        height: 16px;
+        background: red;
+        border: 2px solid white;
+        border-radius: 50%;
+        cursor: pointer;
+        transform: translate(-50%, -50%);
+        transition: transform 0.2s ease;
+      }
+      .dot:hover {
+        transform: translate(-50%, -50%) scale(1.3);
+      }
       .marble-button {
         position: relative;
         background: #d4c4b0;
@@ -66,7 +82,7 @@
     <div class="background"></div>
 
     <div class="content">
-     <h1 style="font-family: 'DynaPuff', cursive;">Welcome Islander!</h1>
+     <h1>Welcome Islander!</h1>
       <p>
         Create your own space on the summer of making island! Join the community of islanders by publishing a website, get it hosted here and compete for an ipad!
         <br>check out the projects on the map below, or scroll to find out how you can submit
@@ -75,6 +91,7 @@
 
     <div class="map-container">
       <img src="https://summer.hackclub.com/assets/map_new-04857e1f.jpg" alt="The Map">
+      <div id="dots"></div>
       <p><button class="marble-button" id="randomButton" style="display: block; margin: 0 auto;">Take Me Somewhere Random</button></p>
     </div>
 
@@ -92,7 +109,7 @@
       <p><u><b>How do I make my space?</b></u></p>
       <p style="margin-left: 2em; line-height: 1.6;">
         -Create an HTML file<br>
-        -add content,  stylise with css and add bheaviours with JS<br>
+        -add content, stylise with css and add behaviours with JS<br>
         -be sure to track your hours with hackatime in a code editor<br>
         -My personal recomendation is VS code using the "live server" extension to view the site<br>
         -Use the submit form to place it on the map and upload the file<br>
@@ -101,38 +118,55 @@
       </p>
     </div>
     <a class="marble-button" href="https://forms.hackclub.com/islanders" id="submit" style="display: block; margin: 20px auto 40px auto; font-size: 1.2em; width: 10vw;">SUBMIT!</a>
-  </body>
-</html>
-
-
 
 <script>
   const button = document.getElementById('randomButton');
+  const dotsContainer = document.getElementById('dots');
 
-  button.addEventListener('click', async () => {
+  async function loadSubmissions() {
     try {
-      // Fetch the submissions list
       const res = await fetch('/submissions.json');
       const submissions = await res.json();
 
-      if (!Array.isArray(submissions) || submissions.length === 0) {
-        alert("No submissions found!");
-        return;
-      }
+      // Render dots using coords
+      submissions.forEach(sub => {
+        if (Array.isArray(sub.coords) && sub.coords.length === 2 && sub.file) {
+          const [x, y] = sub.coords; // coords[0] = left %, coords[1] = top %
 
-      // Pick a random submission
-      const random = submissions[Math.floor(Math.random() * submissions.length)];
-      const filePath = random.file; // e.g. "test.html"
+          const dot = document.createElement('div');
+          dot.className = 'dot';
+          dot.style.left = x + "%";
+          dot.style.top = y + "%";
 
-      // Redirect to /view with ?file=<filename>
-      window.location.href = `/view?file=${encodeURIComponent(filePath)}`;
+          dot.title = sub.name; // tooltip with the name
+
+          dot.addEventListener('click', () => {
+            window.location.href = `/view?file=${encodeURIComponent(sub.file)}`;
+          });
+
+          dotsContainer.appendChild(dot);
+        }
+      });
+
+      // Random button
+      button.addEventListener('click', () => {
+        if (!Array.isArray(submissions) || submissions.length === 0) {
+          alert("No submissions found!");
+          return;
+        }
+        const random = submissions[Math.floor(Math.random() * submissions.length)];
+        const filePath = random.file;
+        window.location.href = `/view?file=${encodeURIComponent(filePath)}`;
+      });
 
     } catch (err) {
       console.error("Error loading submissions.json", err);
       alert("Could not load submissions list.");
     }
-  });
+  }
+
+  loadSubmissions();
 </script>
 
-
-
+  </body>
+</html>
