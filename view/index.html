@@ -4,46 +4,109 @@
   <title>View Submission</title>
   <style>
     @import url('https://fonts.googleapis.com/css2?family=DynaPuff:wght@400..700&display=swap');
+
     body, html {
       margin: 0;
       padding: 0;
       height: 100%;
+      font-family: "DynaPuff", cursive;
+      background: #f9f6f1;
+      text-align: center;
     }
+
+    h1 {
+      margin: 20px;
+      font-size: 2em;
+      color: #3a2f25;
+    }
+
     iframe {
       width: 90%;
-      height: 90%;
+      height: 70vh;
       border: none;
+      margin: 0 auto;
+      display: block;
     }
+
+    .button-container {
+      margin: 20px 0 40px 0;
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+    }
+
     .marble-button {
-      position: relative;
       background: #d4c4b0;
       border: 3px solid #a8956b;
       border-radius: 12px;
-      padding: 10px 20px;
+      padding: 12px 24px;
       cursor: pointer;
       font-weight: 700;
+      font-size: 1.1em;
       color: #3a2f25;
       transition: all 0.15s ease;
       box-shadow: 0 6px 0 #8b7a54, 0 8px 15px rgba(0, 0, 0, 0.2);
       transform: translateY(0);
+      text-decoration: none;
+      display: inline-block;
+    }
+
+    .marble-button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 0 #8b7a54, 0 10px 20px rgba(0, 0, 0, 0.25);
     }
   </style>
 </head>
 <body>
-  <h1 style="font-family: DynaPuff";>Check out this submission in the by</h1>
+  <h1 id="submissionTitle">Loading...</h1>
   <iframe id="submissionFrame"></iframe>
-  <a class="marble-button" href="https://forms.hackclub.com/islanders" id="submit" style="display: block; margin: 20px auto 40px auto; font-size: 1.2em; width: 10vw;">SUBMIT!</a>
+
+  <div class="button-container">
+    <a class="marble-button" href="https://cyber-space.hackclub.dev/">Back to Landing</a>
+    <a class="marble-button" id="nextBtn" href="#">➡ Next Submission</a>
+    <a class="marble-button" href="https://forms.hackclub.com/islanders">Submit!</a>
+  </div>
+
   <script>
-    // Read the file query parameter
     const params = new URLSearchParams(window.location.search);
     const file = params.get('file');
 
-    if (file) {
-      // Set iframe src to the chosen file
-      document.getElementById("submissionFrame").src = "/submissions/" + file;
-    } else {
-      document.body.innerHTML = "<p>No submission selected. <a href = 'https://cyber-space.hackclub.dev/'>Return to landing page?</a></p>";
+    async function loadSubmissions() {
+      try {
+        // Fetch JSON from the project root
+        const response = await fetch('/submissions.json');
+        const submissions = await response.json();
+
+        if (file) {
+          const currentIndex = submissions.findIndex(s => s.file === file);
+          const current = submissions[currentIndex];
+
+          if (current) {
+            document.getElementById("submissionFrame").src = "/submissions/" + current.file;
+            document.getElementById("submissionTitle").innerText =
+              `Submission by ${current.name} at (${current.coords[0]}, ${current.coords[1]})`;
+
+            // Setup next button
+            const nextBtn = document.getElementById("nextBtn");
+            if (currentIndex < submissions.length - 1) {
+              const nextFile = submissions[currentIndex + 1].file;
+              nextBtn.href = `?file=${nextFile}`;
+            } else {
+              nextBtn.style.display = "none"; // hide if last page
+            }
+          } else {
+            document.body.innerHTML = "<p>Submission not found. <a href='https://cyber-space.hackclub.dev/'>Return to landing page?</a></p>";
+          }
+        } else {
+          document.body.innerHTML = "<p>No submission selected. <a href='https://cyber-space.hackclub.dev/'>Return to landing page?</a></p>";
+        }
+      } catch (err) {
+        console.error("Error loading submissions.json:", err);
+        document.body.innerHTML = "<p>Could not load submissions. <a href='https://cyber-space.hackclub.dev/'>Return to landing page?</a></p>";
+      }
     }
+
+    loadSubmissions();
   </script>
 </body>
 </html>
