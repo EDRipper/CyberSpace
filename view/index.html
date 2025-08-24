@@ -3,21 +3,36 @@
 <head>
   <title>View Submission</title>
   <style>
+    @import url('https://fonts.googleapis.com/css2?family=DynaPuff:wght@400..700&display=swap');
     body, html {
       margin: 0;
       padding: 0;
       height: 100%;
     }
     iframe {
-      width: 100%;
-      height: 100%;
+      width: 90%;
+      height: 90%;
       border: none;
+    }
+    .marble-button {
+      position: relative;
+      background: #d4c4b0;
+      border: 3px solid #a8956b;
+      border-radius: 12px;
+      padding: 10px 20px;
+      cursor: pointer;
+      font-weight: 700;
+      color: #3a2f25;
+      transition: all 0.15s ease;
+      box-shadow: 0 6px 0 #8b7a54, 0 8px 15px rgba(0, 0, 0, 0.2);
+      transform: translateY(0);
     }
   </style>
 </head>
 <body>
+  <h1 style="font-family: DynaPuff";>Check out this submission in the by</h1>
   <iframe id="submissionFrame"></iframe>
-
+  <a class="marble-button" href="https://forms.hackclub.com/islanders" id="submit" style="display: block; margin: 20px auto 40px auto; font-size: 1.2em; width: 10vw;">SUBMIT!</a>
   <script>
     // Read the file query parameter
     const params = new URLSearchParams(window.location.search);
