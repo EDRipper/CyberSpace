@@ -151,7 +151,7 @@
       // Random button
       button.addEventListener('click', () => {
         if (!Array.isArray(submissions) || submissions.length === 0) {
-          alert("No submissions found!");
+          console.log("No submissions found!");
           return;
         }
         const random = submissions[Math.floor(Math.random() * submissions.length)];
