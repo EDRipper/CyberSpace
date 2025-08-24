@@ -2,11 +2,13 @@
   {
     "name": "Euan Ripper",
     "coords": [65, 48],
-    "file": "page1.html"
+    "file": "page1.html",
+    "type": "Lucious Forest"
   },
   {
     "name":"Euan Ripper",
     "coords": [70,15],
-    "file": "page2.html"
+    "file": "page2.html",
+    "type": "Snowy Peaks"
   }
 ]

@@ -85,7 +85,7 @@
           if (current) {
             document.getElementById("submissionFrame").src = "/submissions/" + current.file;
             document.getElementById("submissionTitle").innerText =
-              `Submission by ${current.name} at (${current.coords[0]}, ${current.coords[1]})`;
+              `Submission by ${current.name} in the (${current.type})`;
 
             // Setup next button
             const nextBtn = document.getElementById("nextBtn");
