@@ -82,7 +82,7 @@
     <div class="background"></div>
 
     <div class="content">
-     <h1>Welcome Islander!</h1>
+     <h1>Summer Of Making Finalé -You're invited!</h1>
       <p>
         Create your own space on the summer of making island! Join the community of islanders by publishing a website, get it hosted here and compete for an ipad!
         <br>check out the projects on the map below, or scroll to find out how you can submit
@@ -96,7 +96,7 @@
     </div>
 
     <div class="content">
-      <p><u><b>what should i put on my website?</b></u></p>
+      <p><u><b>what should i put on my site?</b></u></p>
       <p style="margin-left: 2em; line-height: 1.6;">
         -A short story about something that happened there (optional)<br>
         -A cute background image showing where you are (can be AI generated)<br>
@@ -108,11 +108,10 @@
       <br><br>
       <p><u><b>How do I make my space?</b></u></p>
       <p style="margin-left: 2em; line-height: 1.6;">
-        -Create an HTML file<br>
-        -add content, stylise with css and add behaviours with JS<br>
-        -be sure to track your hours with hackatime in a code editor<br>
-        -My personal recomendation is VS code using the "live server" extension to view the site<br>
-        -Use the submit form to place it on the map and upload the file<br>
+        -Create an HTML file, add content, stylise with css and add behaviours with JS<br>
+        -be sure to track your hours with hackatime in a code editor, my personal recomendation is VS code using the "live server" extension to view the site<br>
+        -you don't need to host your site, it can exist only on your computer<br>
+        -When you're proud of your site, create a pull request, upload your HTML file to the submission folder and add it to the submissions.json file<br>
         -I'll review it and add it to the map!<br>
         -The most interesting site will win an ipad!
       </p>
@@ -128,45 +127,49 @@
       const res = await fetch('/submissions.json');
       const submissions = await res.json();
 
-      // Render dots using coords
-      submissions.forEach(sub => {
-        if (Array.isArray(sub.coords) && sub.coords.length === 2 && sub.file) {
-          const [x, y] = sub.coords; // coords[0] = left %, coords[1] = top %
+      // Loop through categories (keys) and their arrays
+      Object.entries(submissions).forEach(([type, subs]) => {
+        subs.forEach(sub => {
+          if (Array.isArray(sub.coords) && sub.coords.length === 2 && sub.file) {
+            const [x, y] = sub.coords;
 
-          const dot = document.createElement('div');
-          dot.className = 'dot';
-          dot.style.left = x + "%";
-          dot.style.top = y + "%";
+            const dot = document.createElement('div');
+            dot.className = 'dot';
+            dot.style.left = x + "%";
+            dot.style.top = y + "%";
 
-          dot.title = sub.name; // tooltip with the name
+            dot.title = type; // tooltip shows the category name
 
-          dot.addEventListener('click', () => {
-            window.location.href = `/view?file=${encodeURIComponent(sub.file)}`;
-          });
+            dot.addEventListener('click', () => {
+              window.location.href = `/view?file=${encodeURIComponent(sub.file)}`;
+            });
 
-          dotsContainer.appendChild(dot);
-        }
+            dotsContainer.appendChild(dot);
+          }
+        });
       });
 
-      // Random button
+      // Flatten all submissions into a single array for random button
+      const allSubs = Object.values(submissions).flat();
+
       button.addEventListener('click', () => {
-        if (!Array.isArray(submissions) || submissions.length === 0) {
+        if (allSubs.length === 0) {
           console.log("No submissions found!");
           return;
         }
-        const random = submissions[Math.floor(Math.random() * submissions.length)];
-        const filePath = random.file;
-        window.location.href = `/view?file=${encodeURIComponent(filePath)}`;
+        const random = allSubs[Math.floor(Math.random() * allSubs.length)];
+        window.location.href = `/view?file=${encodeURIComponent(random.file)}`;
       });
 
     } catch (err) {
       console.error("Error loading submissions.json", err);
-      alert("Could not load submissions list.");
+      alert(err.message);
     }
   }
 
   loadSubmissions();
 </script>
+
 
   </body>
 </html>

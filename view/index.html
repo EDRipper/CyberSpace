@@ -69,45 +69,62 @@
   </div>
 
   <script>
-    const params = new URLSearchParams(window.location.search);
-    const file = params.get('file');
+<script>
+  const button = document.getElementById('randomButton');
+  const dotsContainer = document.getElementById('dots');
 
-    async function loadSubmissions() {
-      try {
-        // Fetch JSON from the project root
-        const response = await fetch('/submissions.json');
-        const submissions = await response.json();
+  async function loadSubmissions() {
+    try {
+      const res = await fetch('/submissions.json');
+      const data = await res.json();
 
-        if (file) {
-          const currentIndex = submissions.findIndex(s => s.file === file);
-          const current = submissions[currentIndex];
+      const allSubmissions = [];
 
-          if (current) {
-            document.getElementById("submissionFrame").src = "/submissions/" + current.file;
-            document.getElementById("submissionTitle").innerText =
-              `Submission by ${current.name} in the (${current.type})`;
+      // Loop over each type (the keys of the object)
+      Object.entries(data).forEach(([type, submissions]) => {
+        submissions.forEach(sub => {
+          if (Array.isArray(sub.coords) && sub.coords.length === 2 && sub.file) {
+            const [x, y] = sub.coords;
 
-            // Setup next button
-            const nextBtn = document.getElementById("nextBtn");
-            if (currentIndex < submissions.length - 1) {
-              const nextFile = submissions[currentIndex + 1].file;
-              nextBtn.href = `?file=${nextFile}`;
-            } else {
-              nextBtn.style.display = "none"; // hide if last page
-            }
-          } else {
-            document.body.innerHTML = "<p>Submission not found. <a href='https://cyber-space.hackclub.dev/'>Return to landing page?</a></p>";
+            const dot = document.createElement('div');
+            dot.className = 'dot';
+            dot.style.left = x + "%";
+            dot.style.top = y + "%";
+
+            // Tooltip combines name + type
+            dot.title = `${sub.name} – ${type}`;
+
+            dot.addEventListener('click', () => {
+              window.location.href = `/view?file=${encodeURIComponent(sub.file)}`;
+            });
+
+            dotsContainer.appendChild(dot);
+
+            // when they click through to a random page, bring the sub and type data with
+            allSubmissions.push({ ...sub, type });
           }
-        } else {
-          document.body.innerHTML = "<p>No submission selected. <a href='https://cyber-space.hackclub.dev/'>Return to landing page?</a></p>";
-        }
-      } catch (err) {
-        console.error("Error loading submissions.json:", err);
-        document.body.innerHTML = "<p>Could not load submissions. <a href='https://cyber-space.hackclub.dev/'>Return to landing page?</a></p>";
-      }
-    }
+        });
+      });
 
-    loadSubmissions();
+      // button event listener for random
+      button.addEventListener('click', () => {
+        if (allSubmissions.length === 0) {
+          console.log("No submissions found!");
+          return;
+        }
+        const random = allSubmissions[Math.floor(Math.random() * allSubmissions.length)];
+        window.location.href = `/view?file=${encodeURIComponent(random.file)}`;
+      });
+
+    } catch (err) {
+      console.error("Error loading submissions.json", err);
+      alert("Could not load submissions list.");
+    }
+  }
+
+  loadSubmissions();
+</script>
+
   </script>
 </body>
 </html>
