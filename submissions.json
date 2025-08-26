@@ -61,21 +61,32 @@
   ],
 
   "Lovelace's Lagoons": [
-    { "name": "Unclaimed", "coords": [82, 60], "file": "unclaimed.html" },
-    { "name": "Unclaimed", "coords": [36, 62], "file": "unclaimed.html" },
+    { "name": "Unclaimed", "coords": [82, 64], "file": "unclaimed.html" },
+    { "name": "Unclaimed", "coords": [36, 66], "file": "unclaimed.html" },
     { "name": "Unclaimed", "coords": [52, 26], "file": "unclaimed.html" },
     { "name": "Unclaimed", "coords": [33, 19], "file": "unclaimed.html" },
-    { "name": "Unclaimed", "coords": [80, 59], "file": "unclaimed.html" }
+    { "name": "Unclaimed", "coords": [80, 64], "file": "unclaimed.html" }
   ],
   "Conway's Canyons": [
-    { "name": "Unclaimed", "coords": [27, 55], "file": "unclaimed.html" },
-    { "name": "Unclaimed", "coords": [25, 56], "file": "unclaimed.html" },
-    { "name": "Unclaimed", "coords": [26.6, 36], "file": "unclaimed.html" },
-    { "name": "Unclaimed", "coords": [24, 30], "file": "unclaimed.html" },
-    { "name": "Unclaimed", "coords": [32.6, 60], "file": "unclaimed.html" },
-    { "name": "Unclaimed", "coords": [27.7, 60], "file": "unclaimed.html" },
-    { "name": "Unclaimed", "coords": [29, 33], "file": "unclaimed.html" },
-    { "name": "Unclaimed", "coords": [32, 35], "file": "unclaimed.html" }
+      { "name": "Unclaimed", "coords": [27, 55], "file": "unclaimed.html" },
+      { "name": "Unclaimed", "coords": [25, 56], "file": "unclaimed.html" },
+      { "name": "Unclaimed", "coords": [26.6, 36], "file": "unclaimed.html" },
+      { "name": "Unclaimed", "coords": [24, 30], "file": "unclaimed.html" },
+      { "name": "Unclaimed", "coords": [32.6, 60], "file": "unclaimed.html" },
+      { "name": "Unclaimed", "coords": [27.7, 60], "file": "unclaimed.html" },
+      { "name": "Unclaimed", "coords": [29, 33], "file": "unclaimed.html" },
+      { "name": "Unclaimed", "coords": [32, 35], "file": "unclaimed.html" },
+      { "name": "Unclaimed", "coords": [57, 25], "file": "unclaimed.html" },
+      { "name": "Unclaimed", "coords": [60, 27], "file": "unclaimed.html" },
+      { "name": "Unclaimed", "coords": [64, 26], "file": "unclaimed.html" },
+      { "name": "Unclaimed", "coords": [67, 27], "file": "unclaimed.html" },
+      { "name": "Unclaimed", "coords": [58, 33], "file": "unclaimed.html" },
+      { "name": "Unclaimed", "coords": [57, 35], "file": "unclaimed.html" },
+      { "name": "Unclaimed", "coords": [56, 34], "file": "unclaimed.html" },
+      { "name": "Unclaimed", "coords": [59, 39], "file": "unclaimed.html" },
+      { "name": "Unclaimed", "coords": [67, 41], "file": "unclaimed.html" },
+      { "name": "Unclaimed", "coords": [68, 33], "file": "unclaimed.html" },
+      { "name": "Unclaimed", "coords": [62, 36], "file": "unclaimed.html" }
   ]
 
 
